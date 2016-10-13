@@ -1,0 +1,4 @@
+<div class="container m-t-1">
+  <button *ngIf="!auth.isLoggingIn" (click)="auth.facebookLogin()" class="btn btn-primary"><i class="fa fa-facebook-official"></i>&nbsp;&nbsp;sign in</button>
+  <span *ngIf="auth.isLoggingIn">Loading...</span>
+</div>

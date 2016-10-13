@@ -1,0 +1,25 @@
+<div class="container m-t-1">
+<div class="row">
+  <div class="col-xs-12">
+  <h1>Quick Chat App</h1>
+  <button class="btn btn-danger pull-right" (click)="auth.signout()">Sign Out</button>
+</div>
+</div>
+<form (ngSubmit)="onMessageSend(sendForm.value)" #sendForm="ngForm">
+<ul class="m-t-1">
+  <li *ngFor="let chat of chat.chat_list$ | async">
+    <img src="{{ (chat.sender | async)?.photo }}" alt="{{ (chat.sender | async)?.name }}'s profile picture">
+    <span class="message">{{ chat.message }}</span> <span class="tag tag-primary m-l-1">{{ (chat.sender | async)?.name }}</span>
+    <span class="tag tag-danger" (click)="removeChat(chat.$key)">X</span>
+  </li>
+</ul>
+<div class="input-group m-t-1">
+  <input name="message" [(ngModel)]="message" type="text" class="form-control" placeholder="Enter message..." autocomplete="off" required>
+  <span class="input-group-btn">
+    <button class="btn btn-primary" type="submit"><i class="fa fa-send-o"></i></button>
+  </span>
+</div>
+<label for="message" class="pull-right posting-as">Posting as {{auth.user.name}}</label>
+<input type="hidden" name="uid" [(ngModel)]="auth.user.uid">
+</form>
+</div>

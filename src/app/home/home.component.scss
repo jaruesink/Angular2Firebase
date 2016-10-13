@@ -1,0 +1,30 @@
+.row{
+  h1, button{
+    display: inline-block;
+  }
+}
+ul{
+  list-style: none;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  -webkit-padding-start: 0;
+  li{
+    margin-top: 1em;
+    margin-left: 0;
+    .message{
+      display: inline-block;
+      min-width: 20%;
+    }
+    .tag-danger{cursor: pointer;}
+  }
+  img{
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    margin: 0 .5em;
+  }
+}
+.posting-as{
+  font-size:12px;
+  margin-top:.2em;
+}
