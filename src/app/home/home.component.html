@@ -7,9 +7,9 @@
 </div>
 <form (ngSubmit)="onMessageSend(sendForm.value)" #sendForm="ngForm">
 <ul class="m-t-1">
-  <li *ngFor="let chat of chat.chat_list$ | async">
-    <img src="{{ (chat.sender | async)?.photo }}" alt="{{ (chat.sender | async)?.name }}'s profile picture">
-    <span class="message">{{ chat.message }}</span> <span class="tag tag-primary m-l-1">{{ (chat.sender | async)?.name }}</span>
+  <li *ngFor="let chat of chat.chat_list">
+    <img src="{{ (chat.sender)?.photo }}" alt="{{ (chat.sender)?.name }}'s profile picture">
+    <span class="message">{{ chat.message }}</span> <span class="tag tag-primary m-l-1">{{ (chat.sender)?.name }}</span>
     <span class="tag tag-danger" (click)="removeChat(chat.$key)">X</span>
   </li>
 </ul>
