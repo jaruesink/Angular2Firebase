@@ -7,26 +7,25 @@ import 'rxjs/Rx';
 export class ChatService {
   chat_list: Array<any>;
   chat_list$: Observable<any>;
-  chat_senders$: any = {};
+  chat_sender_info$: any = {};
   items$: FirebaseListObservable<any>;
   constructor(public af: AngularFire) {
     this.items$ = af.database.list('/items', {
       query: { limitToLast: 15, orderByKey: true}
     });
     this.chat_list$ = this.items$.map(chats => {
-      chats.forEach(chat => {
-        this.chat_senders$[chat.uid] = af.database.object(`users/${chat.uid}`);
-      });
-      return chats;
-    });
-    this.chat_list$.subscribe(chat_list => {
-      this.chat_list = chat_list.map(chat => {
-        this.chat_senders$[chat.uid].subscribe((sender) => {
-          chat.sender = sender;
-        });
+      console.log('chat list updated: ', chats);
+      chats.map(chat => {
+        if ( this.chat_sender_info$[chat.uid] !== af.database.object(`users/${chat.uid}`) ) {
+          this.chat_sender_info$[chat.uid] = af.database.object(`users/${chat.uid}`);
+          this.chat_sender_info$[chat.uid].subscribe((sender) => {
+            chat.sender = sender;
+          });
+        }
         return chat;
       });
-      console.log(this.chat_list);
+      console.log('chat_sender_info', this.chat_sender_info$);
+      return chats;
     });
   }
 }
